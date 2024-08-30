@@ -1,9 +1,8 @@
 import { Hono } from 'hono'
+import { getHomes } from '../controllers/home.controllers'
 
 const home = new Hono()
 
-home.get('/', (c) => {
-    return c.text('Welcome to home 🏡')
-})
+home.get('/', getHomes)
 
 export default home
