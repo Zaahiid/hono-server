@@ -1,19 +1,16 @@
-import { Hono } from 'hono'
+import { Hono } from "hono";
 
-import home from './routes/home.routes.js'
+import home from "./routes/home.routes.js";
+import testMiddleware from "./middlewares/test.middlewares.js";
 
-const app = new Hono().basePath("/api/v1")
+const app = new Hono().basePath("/api/v1");
 
+app.use("*/isAuth/", testMiddleware);
 
-app.route('/home',home)
+app.route("/home", home);
 
-const testMiddleware = (c, next) => {
-  console.log('test middleware')
-  return next()
-}
+app.get("/", (c) => {
+  return c.text("Hello Hono!");
+});
 
-app.get('/',testMiddleware, (c) => {
-  return c.text('Hello Hono!')
-})
-
-export default app
+export default app;
